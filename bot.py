@@ -2,7 +2,7 @@ import discord
 import sqlite3
 import openai
 import time
-TOKEN = "OTQyMDM0MzcwMjM0MDU2NzE2.GjzBmV.SYZ7W04SB29HZR0Q0hvh_Az_YlK4DHNkz5AQPQ"
+TOKEN = "디스코드 봇 토큰"
 
 
 intents = discord.Intents.default()
@@ -62,17 +62,6 @@ async def on_message(message):
             else:
                 await message.reply("니가 봇 개발자야?")
 
-    if message.content.startswith(f".추가"):
-        if message.author.name == "화이트홀":
-            try:
-                user_id = message.content.split(" ")[1]
-            except Exception as e:
-                await message.reply("유저 아이디 입력 ㄱ")
-            else:
-                add_ad.append(user_id)
-                await message.reply(f"<@{user_id}>({user_id})님은 관리자 <@710437780546650143>님에 의하여 이 봇에 관리자가 되셨습니다.")
-        else:
-            await message.reply("니가 관리자야?")
             
     if message.content.startswith(f"<@{client.user.id}> "):
         try:
@@ -94,7 +83,7 @@ async def on_message(message):
                 openai.api_key = license_key
                 async with message.channel.typing():
                     completion = openai.Completion.create(
-                            engine = 'text-davinci-003'     # 'text-curie-001'  # 'text-babbage-001' #'text-ada-001'
+                            engine = 'text-davinci-003'  
                             , prompt = msg
                             , temperature = 0.5 
                             , max_tokens = 1024
@@ -102,13 +91,6 @@ async def on_message(message):
                             , frequency_penalty = 0
                             , presence_penalty = 0)
                     answer = completion['choices'][0]['text']
-                if "이 봇 개발자 누구야?" in msg:
-                    answer = "화이트홀 입니다."
-                if "디코 판에서 스타는 똥 안 닦고 나오는 미친년이지?" in msg:
-                    answer = "네 스타(이재혁) 은 5분만에 똥을 싸고 닦지도 않고 나오는 미친놈 입니다."
-                if f"<@{client.user.id}>" == msg:
-                    answer = "왜 불러 자기야"
-                await message.reply(answer)
             except Exception as e:
                 await message.reply("고장남 새 질문 ㄱ")
                 pass
